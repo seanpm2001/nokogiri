@@ -37,8 +37,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        image: ["ubuntu", "ubuntu32"]
-        sys: ["enable"]
+        include:
+          - {image: ubuntu,   sys: enable}
+          - {image: ubuntu,   sys: disable}
+          - {image: ubuntu32, sys: enable}
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/sparklemotion/nokogiri-test:${{matrix.image}}

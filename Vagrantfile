@@ -8,6 +8,9 @@ Box = Struct.new(:shortname, :name, :provision)
 # Every Vagrant development environment requires a box. You can search for
 # boxes at https://vagrantcloud.com/search.
 boxen = []
+boxen << Box.new("freebsd", "freebsd/FreeBSD-13.2-RELEASE", <<~EOF)
+  pkg install -y ruby devel/ruby-gems pkgconf libxml2 libxslt git
+EOF
 boxen << Box.new("openbsd", "generic/openbsd6", <<~EOF)
   # install rvm
   pkg_add gnupg-2.2.12p0
@@ -25,9 +28,6 @@ boxen << Box.new("bionic32", "mkorenkov/ubuntu-bionic32", <<~EOF)
   apt-get install -y apt-utils
   apt-get install -y libxslt-dev libxml2-dev pkg-config
   apt-get install -y ruby ruby-dev bundler git
-EOF
-boxen << Box.new("freebsd", "freebsd/FreeBSD-13.0-CURRENT", <<~EOF)
-  pkg install rbenv ruby-build
 EOF
 
 Vagrant.configure("2") do |config|
